@@ -5,15 +5,18 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
 public class HibernateUtil {
-	public static SessionFactory factory;
-	
-	private HibernateUtil() {
-		
-    }
-	public static synchronized SessionFactory getSessionFactory() {
-        if (factory == null) {
-            factory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
-        }
-        return factory;
-    }
+	private static final SessionFactory sessionFactory;
+	static {
+		try {
+			sessionFactory= new Configuration().configure().buildSessionFactory();
+		}
+		catch (Throwable ex)
+		{
+			System.err.println("Error al crear el sessionfactory inicial");
+			throw new ExceptionInInitializerError(ex);
+		}
+	}
+	public static SessionFactory getSessionFactory(){
+		return sessionFactory;
+	}
 }

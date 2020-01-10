@@ -92,4 +92,13 @@ public class Vuelo implements java.io.Serializable {
 		this.tripulacions = tripulacions;
 	}
 
+	@Override
+	public String toString() {
+		return "Vuelo [identificador=" + identificador + ", aeropuertoOrigen=" + aeropuertoOrigen
+				+ ", aeropuertoDestino=" + aeropuertoDestino + ", tipoVuelo=" + tipoVuelo + ", fechaVuelo=" + fechaVuelo
+				+ "]";
+	}
+
+	
+
 }
