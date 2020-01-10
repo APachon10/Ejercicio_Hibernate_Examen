@@ -10,7 +10,6 @@ public class HibernateUtil {
 	private HibernateUtil() {
 		
     }
-	
 	public static synchronized SessionFactory getSessionFactory() {
         if (factory == null) {
             factory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
