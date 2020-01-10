@@ -60,4 +60,9 @@ public class Personal implements java.io.Serializable {
 		this.tripulacions = tripulacions;
 	}
 
+	@Override
+	public String toString() {
+		return "Personal [codigo=" + codigo + ", nombre=" + nombre + ", categoria=" + categoria + "]";
+	}
+	
 }

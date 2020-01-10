@@ -2,12 +2,15 @@ package GestionDB;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import Modelos.Personal;
 import Modelos.Vuelo;
 import Singleton.HibernateUtil;
 
@@ -35,8 +38,16 @@ public class Querys {
 	}
 
 	//Consultas que no necesitan Transaccion 
-	public void selectVuelos() {
+	public void selectPersonal(String puesto ) {
+		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		Session sesion = sessionFactory.openSession();
+		Query selectPersonal = sesion.createQuery("from Personal where categoria = :puesto");
+		selectPersonal.setParameter("puesto", puesto);
+		List<Personal> list = selectPersonal.list();
 		
+		for (Personal personal : list) {
+			System.out.println(personal);
+		}
 	}
 	
 }
