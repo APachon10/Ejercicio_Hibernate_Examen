@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.persistence.StoredProcedureQuery;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,6 +19,7 @@ import Singleton.HibernateUtil;
 public class Querys {
 	
 	public void insertflight(Vuelo v ) {
+		
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session sesion = sessionFactory.openSession();
 		Transaction ts = sesion.beginTransaction();
@@ -45,9 +48,34 @@ public class Querys {
 		selectPersonal.setParameter("puesto", puesto);
 		List<Personal> list = selectPersonal.list();
 		
+		System.out.println("Lista de Pilotos: ");
+		System.out.println("=======================");
 		for (Personal personal : list) {
 			System.out.println(personal);
+			System.out.println("=====================");
 		}
 	}
-	
+	public void selectVuelos() {
+		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		Session sesion = sessionFactory.openSession();
+		Query selectVuelos = sesion.createQuery("from Vuelo");
+		List<Vuelo> list = selectVuelos.list();
+		
+		for (Vuelo vuelo : list) {
+			System.out.println(vuelo);
+			System.out.println("========================");
+		}
+	}
+	public void selectVuelos_post17Feb2020() {
+		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		Session sesion = sessionFactory.openSession();
+		StoredProcedureQuery ps =  sesion.createStoredProcedureQuery("SelectVuelospost17feb",Vuelo.class);
+		List<Vuelo> ls = ps.getResultList();
+		
+		for (Vuelo vuelo : ls) {
+			System.out.println(vuelo);
+			System.out.println("=====================");
+		}
+		
+	}
 }
